@@ -1,0 +1,4 @@
+# Environments
+.env
+.venv
+.static/Chart.js-2.9.4

@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+{% include "NavigationBars/RegularNavi.html" %}
+
+<div class="container py-5 d-flex justify-content-center mt-5">
+    <section class='home text-white text-center'>
+        <p >Data was sourced from OpenWeather Air Pollution API and Apex Charts were used to visualize this data. </p>
+        <h1>Air Quality and Pollution</h1>
+        <h2>We love Clean Air!</h2>
+        <button class="btn aqua-gradient "><a  class="text-white" href="{% url 'dashboard' %}">Dashboard</a></button>
+
+
+
+    </section>
+
+</div>
+
+
+{% endblock %}

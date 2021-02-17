@@ -1,0 +1,68 @@
+@import "mdb.css"
+html,
+body,
+header,
+#intro {
+    height: 100%;
+    margin:0;
+}
+
+
+.top-nav-collapse {
+    background-color: #24355C;
+  }
+  @media (max-width: 768px) {
+    .navbar:not(.top-nav-collapse) {
+      background-color: #24355C;
+    }
+  }
+  @media (min-width: 800px) and (max-width: 850px) {
+    .navbar:not(.top-nav-collapse) {
+      background-color: #24355C;
+    }
+  }
+
+
+#body{
+ background: url("/static/img/pexels-kaique-rocha-125510.jpg")no-repeat center center fixed;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+}
+
+
+
+
+p{
+font-size: 20px;
+font-famly: Helvetica;
+}
+
+.home{
+
+    background: black;
+    width: 70%;
+    background: -webkit-linear-gradient(rgba(29, 38, 113, 0.8), rgba(195, 55, 100, 0.8));
+    background: linear-gradient(rgba(29, 38, 0, 0.8), rgba(0, 0, 0, 0.5)); /* The least supported option. */
+
+
+}
+.dashboard{
+    margin-top:70px;
+    background: black;
+    width:100%;
+    height:inherit;
+    background: -webkit-linear-gradient(rgba(29, 38, 113, 0.8), rgba(195, 55, 100, 0.5));
+    background: linear-gradient(rgba(50, 38, 90, 0.8), rgba(0, 0, 0, 0.3)); /* The least supported option. */
+
+}
+
+h1{
+font-size: 90px;
+}
+
+h2{
+font-size: 50px;
+}
+

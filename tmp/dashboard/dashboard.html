@@ -1,0 +1,454 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+{% include "NavigationBars/RegularNavi.html" %}
+
+<div class="dashboard  ">
+    <div class=" container mt-5 py-5">
+
+
+        <!-- Heading -->
+        <div class="card mb-4 wow fadeIn">
+
+
+            <!--Card content-->
+            <div class="card-body d-sm-flex justify-content-between">
+
+                <h4 class="mb-2 mb-sm-0 pt-1">
+
+                    <span>Dashboard</span>
+
+                </h4>
+                {% if city == None %}
+                {{city}}
+                {% else %}
+                <p>Search for a real city or/and scroll down</p>
+                {% endif %}
+                <div>
+                    <form method="GET" class="d-flex justify-content-center">
+
+                        <!-- Default input -->
+                        <input type="search" name="search" placeholder="Type the city here" aria-label="Search"
+                               class="form-control" required>
+                        <button class="btn btn-primary btn-sm my-0 p" type="submit">
+                            <i class="fa fa-search"></i>
+                        </button>
+
+                    </form>
+                </div>
+            </div>
+        </div>
+
+
+
+<!-- Heading -->
+<div class="row" id="current">
+    <div class="col-lg-8">
+        <div class="card ">
+            {% if current_data %}
+            <div id="chart"></div>
+            {% else %}
+            <p>Sorry, There is no data available for the current air pollution readings.</p>
+            {% endif %}
+
+            <script>
+ var options = {
+          series: [{
+            name: "Gases and Particles",
+            data: [
+            {{current_data.co2}},
+            {{current_data.no}},
+            {{current_data.co2}},
+             {{current_data.o3}},
+             {{current_data.so2}},
+             {{current_data.pm2_5}},
+             {{current_data.pm10}},
+             {{current_data.nh3}},
+
+            ]
+        }],
+          chart: {
+          height: 350,
+          type: 'line',
+          zoom: {
+            enabled: true
+          }
+        },
+        dataLabels: {
+          enabled: false
+        },
+        stroke: {
+          curve: 'smooth'
+        },
+        title: {
+          text: 'Current Air Pollution Readings',
+          align: 'center'
+        },
+        grid: {
+          row: {
+            colors: ['#f3f3f3', 'transparent'], // takes an array which will be repeated on columns
+            opacity: 0.5
+          },
+        },
+        xaxis: {
+          categories: [
+           'CO',
+           'NO',
+           'NO2',
+           'O3',
+           'SO2',
+           'PM2.5',
+           'PM10',
+           'NH3'
+           ],
+        }
+        };
+
+var chart = new ApexCharts(document.querySelector("#chart"), options);
+//console.log(chart, "chart1");
+chart.render();
+
+
+
+
+
+
+
+
+
+
+
+            </script>
+        </div>
+
+
+    </div>
+
+    <!--end of column-->
+
+    <div class=" card col-sm-4">
+
+        {% if current_data %}
+        <div id="chart2"></div>
+        {% else %}
+        <p>Sorry, There is no data available for the current air quality readings.</p>
+        {% endif %}
+        <script>
+
+var max = 5
+function valueToPercent (value) {
+  return (value * 100) / max
+}
+
+  var options = {
+          series: [valueToPercent({{current_data.aqi}})],
+          chart: {
+          height: 350,
+          type: 'radialBar',
+          toolbar: {
+            show: true
+          }
+        },
+        plotOptions: {
+          radialBar: {
+            startAngle: -135,
+            endAngle: 225,
+             hollow: {
+              margin: 0,
+              size: '70%',
+              background: '#fff',
+              image: undefined,
+              imageOffsetX: 0,
+              imageOffsetY: 0,
+              position: 'front',
+              dropShadow: {
+                enabled: true,
+                top: 3,
+                left: 0,
+                blur: 4,
+                opacity: 0.24
+              }
+            },
+            track: {
+              background: '#fff',
+              strokeWidth: '67%',
+              margin: 0, // margin is in pixels
+              dropShadow: {
+                enabled: true,
+                top: -3,
+                left: 0,
+                blur: 4,
+                opacity: 0.35
+              }
+            },
+
+            dataLabels: {
+              show: true,
+              name: {
+                offsetY: -10,
+                show: true,
+                color: '#888',
+                fontSize: '17px'
+              },
+              value: {
+                formatter: function(val) {
+                  return parseInt({{current_data.aqi}});
+                },
+                color: '#111',
+                fontSize: '36px',
+                show: true,
+              }
+            }
+          }
+        },
+        fill: {
+          type: 'gradient',
+          gradient: {
+            shade: 'dark',
+            type: 'horizontal',
+            shadeIntensity: 0.5,
+            gradientToColors: ['#ff4d4d'],
+            inverseColors: false,
+            opacityFrom: 1,
+            opacityTo: 1,
+            stops: [0, 100]
+          }
+        },
+        stroke: {
+          lineCap: 'round'
+        },
+        labels: ['Air Quality Index (AQI)'],
+        };
+var chart = new ApexCharts(document.querySelector("#chart2"), options);
+//console.log(chart, "chart2");
+chart.render();
+
+
+
+
+
+
+
+
+
+        </script>
+
+
+    </div>
+</div>
+<!--end of row-->
+<!-- forecast row-->
+<div class="row mt-3 " id="AirPollutionForecast">
+    <!--gases and particles-->
+    <div class="col-lg">
+        <div class="card">
+
+            {% if current_data %}
+            <div id="chart3"></div>
+            {% else %}
+            <p>Sorry, There is no data available for air pollution forecast.</p>
+            {% endif %}
+
+            <script>
+ var dates = [];
+ {% for key, value in date_forecast.items %}
+         {% for i in value %}
+          dates.push("{{i|safe}}")
+          {%endfor%}
+          {%endfor%}
+
+ console.log(dates);
+
+
+
+ var options = {
+          series: [
+         {% for key,value in gases_forecast.items %}
+
+          {
+          name:  "{{key|safe}}",
+
+          data:
+
+         {{value|safe}}
+
+
+
+        },
+
+         {%endfor%}
+        ],
+          chart: {
+          type: 'area',
+          height: 550,
+
+
+        },
+
+
+        dataLabels: {
+          enabled: false
+        },
+        stroke: {
+          show: true,
+          width: 2,
+          colors: ['transparent']
+        },
+         title: {
+          text: ' Air Pollution Forecast',
+          align: 'center'
+        },
+
+        yaxis: {
+          title: {
+            text: 'Concentration in μg/m3'
+          }
+        },
+        fill: {
+          opacity: 1
+        },
+        xaxis: {
+
+         labels: {
+      hideOverlappingLabels: true,
+                datetimeFormatter: {
+                    day: 'M/dd',
+                }
+    },
+
+          categories:dates,
+
+          tickAmount: 10
+
+        },
+        tooltip: {
+          x: {
+            format: 'dd/MM/yy HH:mm'
+          },
+          y: {
+            formatter: function (val) {
+              return val + " μg/m3"
+            }
+          }
+        }
+        };
+
+        var chart = new ApexCharts(document.querySelector("#chart3"), options);
+        console.log("chart3");
+        chart.render();
+
+
+
+
+
+
+            </script>
+        </div>
+    </div>
+</div>
+<div class="row mt-3" id="AirQualityForecast">
+    <div class=" card ">
+
+        {% if current_data %}
+        <div id="chart4"></div>
+        {% else %}
+        <p>Sorry, There is no data available for the air quality forecast.</p>
+        {% endif %}
+        <script>
+
+ var dates = [];
+  var aqi = [];
+ {% for key, value in date_forecast.items %}
+         {% for i in value %}
+          dates.push("{{i|safe}}")
+          {%endfor%}
+          {%endfor%}
+
+ console.log(dates);
+
+{% for key, value in aqi_forecast.items %}
+         {% for i in value %}
+          aqi.push("{{i|safe}}")
+          {%endfor%}
+          {%endfor%}
+
+ console.log(aqi);
+
+
+        var options = {
+          series: [{
+          name: 'AQI',
+          data: aqi
+        }],
+          chart: {
+          height:550,
+          type: 'line',
+        },
+        stroke: {
+
+         curve: 'stepline',
+        },
+       xaxis: {
+          categories:dates,
+           title: {
+            text: 'Day'
+          },
+          tickAmount: 10
+
+        },
+        title: {
+          text: 'Air Quality Index Forecast',
+          align: 'center',
+          style: {
+            fontSize: "16px",
+            color: '#666'
+          }
+        },
+        fill: {
+          type: 'gradient',
+          gradient: {
+            shade: 'dark',
+            gradientToColors: [ '#FDD835'],
+            shadeIntensity: 1,
+            type: 'horizontal',
+            opacityFrom: 1,
+            opacityTo: 1,
+            stops: [0, 100, 100, 100]
+          },
+        },
+
+        yaxis: {
+         min: 0,
+          max: 5,
+          title: {
+            text: 'AQI',
+          },
+        }
+        };
+var chart = new ApexCharts(document.querySelector("#chart4"), options);
+console.log(chart, "chart4");
+chart.render();
+
+
+
+
+
+
+
+
+
+        </script>
+
+
+    </div>
+</div>
+
+
+</div>
+</div>
+</div>
+
+</div>
+
+{% endblock %}
