@@ -20,10 +20,11 @@
                     <span>Dashboard</span>
 
                 </h4>
-                {% if city == None %}
-                <p>Search for a real city or/and scroll down</p>
+                {% if city != "None" %}
+                 {{city}}
+
                 {% else %}
-                {{city}}
+               <p>Search for a real city or/and scroll down</p>
                 {% endif %}
                 <div>
                     <form method="GET" class="d-flex justify-content-center">
