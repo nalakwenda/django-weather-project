@@ -71,7 +71,7 @@ def current(latitude,longitude):
         list_of_current_data = json.loads(current)
         current_data= {
         "aqi" : list_of_current_data['list'][0]['main']['aqi'],
-        "co2" : list_of_current_data['list'][0]['components']['co'],
+        "co" : list_of_current_data['list'][0]['components']['co'],
         "no"  : list_of_current_data['list'][0]['components']['no'],
         "no2"  : list_of_current_data['list'][0]['components']['no2'],
         "o3"  : list_of_current_data['list'][0]['components']['o3'],
@@ -118,7 +118,7 @@ def forecast(latitude,longitude):
 
             gases_forecast= {
 
-        "CO2" : co,
+        "CO" : co,
         "NO"  : no,
         "NO2"  : no2,
         "O3"  : o3,
