@@ -1,7 +1,7 @@
 # weather-project
 # Air Pollution Django App
 - [Apex Charts](https://apexcharts.com/)
-- [Material Design For Bootstrap 4] (https://mdbootstrap.com/docs/b4/jquery/)
+- [Material Design For Bootstrap 4](https://mdbootstrap.com/docs/b4/jquery/)
 - Django
 - Image from Unsplash
 - [Open Weather API](https://openweathermap.org/api/air-pollution)
