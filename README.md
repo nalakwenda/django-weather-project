@@ -13,7 +13,7 @@
 ### Curent AQI, gases and particles
 ![image](https://user-images.githubusercontent.com/47489747/111072410-2cdc2680-84e3-11eb-8ce3-171879a8fa6b.png)
 
-### gases and particles forecast
+### Gases and particles forecast
 ![image](https://user-images.githubusercontent.com/47489747/111072494-85abbf00-84e3-11eb-802f-917fe465535a.png)
 
 ### AQI forecast
